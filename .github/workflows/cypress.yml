@@ -10,5 +10,5 @@ jobs:
       # and run all Cypress tests
       - name: Cypress run
         with:
-          working-directory: app-web/cypress
+          working-directory: app-web
         uses: cypress-io/github-action@v1
