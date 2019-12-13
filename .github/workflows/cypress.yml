@@ -9,5 +9,6 @@ jobs:
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
-        run: cd app-web
+        with:
+          working-directory: app-web/cypress
         uses: cypress-io/github-action@v1
