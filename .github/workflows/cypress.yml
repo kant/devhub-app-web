@@ -6,9 +6,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Check into working directory
-        run: cd app-web
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
+        run: cd app-web
         uses: cypress-io/github-action@v1
