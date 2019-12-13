@@ -11,4 +11,5 @@ jobs:
       - name: Cypress run
         with:
           working-directory: app-web
+          start: npm start
         uses: cypress-io/github-action@v1
