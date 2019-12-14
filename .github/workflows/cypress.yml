@@ -11,6 +11,6 @@ jobs:
       - name: Cypress run
         with:
           working-directory: app-web
-          start: cd app-web && npm start
+          start: npm start
           wait-on: 'http://localhost:8000'
         uses: cypress-io/github-action@v1
