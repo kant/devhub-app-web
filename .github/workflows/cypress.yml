@@ -15,14 +15,11 @@ jobs:
             ${{ runner.OS }}-build-${{ env.cache-name }}-
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
-      - name: Boot Up Server
-        run: |
-          cd app-web
-          npm start
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
         with:
           working-directory: app-web
+          start: npm run dev
           wait-on: 'http://localhost:8000'
         uses: cypress-io/github-action@v1
