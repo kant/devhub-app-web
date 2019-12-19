@@ -16,6 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - uses: ./
+    - uses: ./.github/actions/devhub-markdown-frontmatter-verify
       with:
-        milliseconds: 1000
+        # milliseconds: 1000
