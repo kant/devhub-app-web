@@ -2,7 +2,7 @@ name: "devhub-markdown-verify-test"
 on:
   pull_request:
     paths:
-    - '.github/actions/devhub-markdown-frontmatter-verify/*.js'
+    - '.github/actions/devhub-markdown-frontmatter-verify/**/*.js'
 jobs:
   # unit tests
   units:
