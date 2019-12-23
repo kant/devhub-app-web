@@ -44,27 +44,38 @@ async function run() {
     const { ref } = github.context;
     core.debug(`Fetching contents from ${ref}`);
     try {
-      console.log('oopsy')
       const result = await core.group('Fetching topic and journey registries', async () => {
+        const topicPath = 'app-web/topicRegistry';
+        const journeyPath = 'app-web/journeyRegistry';
+        const topicBranchPath = `${ref}:${topicPath}`;
+        const journeyBranchPath = `${ref}:${journeyPath}`;
+        core.debug(`Fetching topic registries at ${topicBranchPath}`);
+        
         const topicsRegistry = await octokit.graphql(CONTENTS_QUERY, {
           repo: 'devhub-app-web',
           owner: 'bcgov',
-          path: `${ref}:app-web/topicRegistry`,
+          path: topicBranchPath,
         });
+
+        core.debug(`Fetching journey registries at ${journeyBranchPath}`);
         const journeyRegistry = await octokit.graphql(CONTENTS_QUERY, {
           repo: 'devhub-app-web',
           owner: 'bcgov',
-          path: `${ref}:app-web/journeyRegistry`,
+          path: journeyBranchPath,
         });
-        console.log(JSON.stringify(topicsRegistry), JSON.stringify(journeyRegistry))
-        core.debug(JSON.stringify(topicsRegistry));
-        core.debug(JSON.stringify(journeyRegistry));
-        core.debug(topicsRegistry.repository)
-        core.debug(topicsRegistry.repository.object)
-        core.debug(topicsRegistry.repository.object.entries)
-        core.debug(`Fetching contents from ${topicsRegistry}`);
-        return journeyRegistry
-        // return reduceContentsResults(topicsRegistry).concat(journeyRegistry)
+
+        core.debug('Reducing fetch calls to a list of registry files');
+        const topics = reduceContentsResults(topicPath, topicsRegistry);
+        core.debug('topics reduced');
+        const journeys = reduceContentsResults(journeyPath, journeyRegistry)
+        core.debug('journeys reduced');
+
+        core.debug('exiting group');
+
+        return {
+          topics,
+          journeys
+        }
       });
 
       console.log(result);
