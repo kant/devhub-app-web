@@ -63,7 +63,8 @@ async function run() {
         core.debug(topicsRegistry.repository.object)
         core.debug(topicsRegistry.repository.object.entries)
         core.debug(`Fetching contents from ${topicsRegistry}`);
-        return reduceContentsResults(topicsRegistry).concat(journeyRegistry)
+        return journeyRegistry
+        // return reduceContentsResults(topicsRegistry).concat(journeyRegistry)
       });
 
       console.log(result);
