@@ -709,7 +709,7 @@ async function run() {
           journeys
         }
       });
-      console.log(reduceJourneyRegistryToTopic(result.journeys))
+      console.log(reduceJourneyRegistryToTopic(result.journeys.map(journey => journey.contents)))
       console.log(result);
     } catch(e) {
       core.debug(e.message);
