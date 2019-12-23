@@ -533,7 +533,7 @@ async function run() {
     const { ref } = github.context;
     core.debug(`Fetching contents from ${ref}`);
     try {
-
+      
       const result = await core.group('Fetching topic and journey registries', async () => {
         const topicsRegistry = await octokit.graphql(CONTENTS_QUERY, {
           repo: 'devhub-app-web',
@@ -545,10 +545,11 @@ async function run() {
           owner: 'bcgov',
           path: `${ref}:app-web/journeyRegistry`,
         });
-
+        console.log(topicsRegistry);
+        core.debug(`Fetching contents from ${topicsRegistry}`);
         return reduceContentsResults(topicsRegistry.data).concat(journeyRegistry.data)
       });
-      
+
       console.log(result);
     } catch(e) {
       core.error(e);
