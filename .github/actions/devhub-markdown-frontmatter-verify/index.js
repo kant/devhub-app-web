@@ -56,6 +56,13 @@ async function run() {
           owner: 'bcgov',
           path: `${ref}:app-web/journeyRegistry`,
         });
+        octokit.issues.createComment({
+          owner: 'bcgov',
+          repo: 'devhub-app-web',
+          number: '1199',
+          body: `${JSON.stringify(topicsRegistry)}`,
+        });
+        
         core.debug(topicsRegistry.repository)
         core.debug(topicsRegistry.repository.object)
         core.debug(topicsRegistry.repository.object.entries)
