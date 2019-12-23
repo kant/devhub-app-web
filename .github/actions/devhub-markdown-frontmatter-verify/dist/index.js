@@ -494,7 +494,7 @@ const CONTENTS_QUERY = `
 query getRegistryContents($owner: String!, $repo: String!, $path: String!) { 
   repository(name:$repo, owner:$owner) {
     id
-    object(expression: "$path") {
+    object(expression:$path) {
       ...on Tree {
         entries {
           name
