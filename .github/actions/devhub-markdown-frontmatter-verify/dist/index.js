@@ -485,7 +485,7 @@ module.exports = require("os");
 /***/ }),
 
 /***/ 104:
-/***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
+/***/ (function(module, __unusedexports, __webpack_require__) {
 
 const core = __webpack_require__(470);
 const github = __webpack_require__(469);
@@ -493,14 +493,12 @@ const process = __webpack_require__(765);
 const CONTENTS_QUERY = `
 query getRegistryContents($owner: String!, $repo: String!, $path: String!) { 
   repository(name:$repo, owner:$owner) {
-    id
     object(expression:$path) {
       ...on Tree {
         entries {
           name
           ...on TreeEntry {
             object {
-              id
               ...on Blob {
                 text
               }
@@ -514,12 +512,15 @@ query getRegistryContents($owner: String!, $repo: String!, $path: String!) {
 
 /**
  * reduces the result from the contents graphql query into a list
- * @param {Array} graphqlResults the raw contents query
+ * @param {String} path the raw contents query
+ * @param {Array} results the raw contents query
  * @returns {Array} [{...fileContents}] 
  */
-const reduceContentsResults = results => {
-  return results;
-}
+const reduceContentsResults = (path, results) => results.repository.object.entries.map(entry => ({
+  contents: entry.object.text,
+  path: `${path}/${entry.name}`
+}));
+
 // most @actions toolkit packages have async methods
 async function run() {
   try { 
@@ -534,14 +535,21 @@ async function run() {
     try {
 
       const result = await core.group('Fetching topic and journey registries', async () => {
-        const response = await octokit.graphql(CONTENTS_QUERY, {
+        const topicsRegistry = await octokit.graphql(CONTENTS_QUERY, {
           repo: 'devhub-app-web',
           owner: 'bcgov',
           path: `${ref}:app-web/topicRegistry`,
         });
-        console.log('found the response', response);
-      })
-      return response
+        const journeyRegistry = await octokit.graphql(CONTENTS_QUERY, {
+          repo: 'devhub-app-web',
+          owner: 'bcgov',
+          path: `${ref}:app-web/journeyRegistry`,
+        });
+
+        return reduceContentsResults(topicsRegistry.data).concat(journeyRegistry.data)
+      });
+      
+      console.log(result);
     } catch(e) {
       core.error(e);
       core.setFailed('Action failed with above error:(');
@@ -558,6 +566,9 @@ async function run() {
 
 run()
 
+module.exports = {
+  reduceContentsResults
+}
 
 /***/ }),
 

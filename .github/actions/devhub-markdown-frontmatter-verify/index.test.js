@@ -2,7 +2,46 @@ const wait = require('./wait');
 const process = require('process');
 const cp = require('child_process');
 const path = require('path');
+const { reduceContentsResults } = require('./index');
 
+test('Reducing Github GraphQL Contents', () => {
+    const graphql1 = {
+            "data": {
+            "repository": {
+                "id": "MDEwOlJlcG9zaXRvcnkxNDg2Nzk1OTQ=",
+                "name": "devhub-app-web",
+                "object": {
+                "entries": [
+                    {
+                        "name": "topic1.json",
+                        "object": {
+                            "text": "foo"
+                        }
+                    },
+                    {
+                        "name": "topic2.json",
+                        "object": {
+                            "text": "foo"
+                        }
+                    },
+                ]
+                }
+            }
+        }
+    }
+    const expected = [
+        {
+            path: 'app-web/topic1.json',
+            contents: "foo"
+        },
+        {
+            path: 'app-web/topic2.json',
+            contents: "foo"
+        }
+    ]
+
+    expect(reduceContentsResults('app-web', graphql1.data)).toEqual(expected);
+})
 test.skip('throws invalid number', async() => {
     await expect(wait('foo')).rejects.toThrow('milleseconds not a number');
 });
