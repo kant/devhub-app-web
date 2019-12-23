@@ -1,6 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-
+const process = require('process');
 const CONTENTS_QUERY = `
 query { 
   repository(name: $repo, owner: $owner) {
