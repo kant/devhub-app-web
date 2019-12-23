@@ -491,8 +491,8 @@ const core = __webpack_require__(470);
 const github = __webpack_require__(469);
 const process = __webpack_require__(765);
 const CONTENTS_QUERY = `
-query { 
-  repository(name: $repo, owner: $owner) {
+query getRegistryContents($owner: String!, $repo: String!, $branch: String!, $path: String!) { 
+  repository(name:$repo, owner:$owner) {
     id
     object(expression: "$branch:$path") {
       ...on Tree {
@@ -535,7 +535,7 @@ async function run() {
           branch: ref,
           path: 'app-web/topicRegistry'
         });
-        console.log('found the response')
+        console.log('found the response', response);
       })
       return response
     } catch(e) {
