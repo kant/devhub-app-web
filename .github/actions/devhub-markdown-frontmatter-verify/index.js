@@ -1,6 +1,8 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const process = require('process');
+const { reduceJourneyRegistryToTopic } = require('../../../app-web/gatsby/utils/githubRaw');
+
 const CONTENTS_QUERY = `
 query getRegistryContents($owner: String!, $repo: String!, $path: String!) { 
   repository(name:$repo, owner:$owner) {
@@ -77,7 +79,7 @@ async function run() {
           journeys
         }
       });
-
+      console.log(reduceJourneyRegistryToTopic(result.journeys))
       console.log(result);
     } catch(e) {
       core.debug(e.message);

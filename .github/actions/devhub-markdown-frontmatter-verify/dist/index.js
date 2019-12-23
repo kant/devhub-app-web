@@ -36,6 +36,8 @@ module.exports =
 /******/ 		// Load entry module and return exports
 /******/ 		return __webpack_require__(104);
 /******/ 	};
+/******/ 	// initialize runtime
+/******/ 	runtime(__webpack_require__);
 /******/
 /******/ 	// run startup
 /******/ 	return startup();
@@ -477,6 +479,145 @@ module.exports = windowsRelease;
 
 /***/ }),
 
+/***/ 53:
+/***/ (function(__unusedmodule, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RESOURCE_TYPES", function() { return RESOURCE_TYPES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SEARCH_RESOURCE_TYPES", function() { return SEARCH_RESOURCE_TYPES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JOURNEY", function() { return JOURNEY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TOPICS", function() { return TOPICS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RESOURCE_TYPES_LIST", function() { return RESOURCE_TYPES_LIST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PERSONAS_LIST", function() { return PERSONAS_LIST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "buttonTypes", function() { return buttonTypes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MAIN_NAVIGATION_BTN", function() { return MAIN_NAVIGATION_BTN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SEARCH_INPUT_ID", function() { return SEARCH_INPUT_ID; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REACT_SCROLL", function() { return REACT_SCROLL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SEARCH", function() { return SEARCH; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AVATAR_NAMESPACES", function() { return AVATAR_NAMESPACES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EVENTS", function() { return EVENTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EVENT_TYPES", function() { return EVENT_TYPES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CARD_CAROUSEL", function() { return CARD_CAROUSEL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "POPULAR_TOPIC_CONFIGURATION", function() { return POPULAR_TOPIC_CONFIGURATION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DYNAMIC_TOPIC_PATHS", function() { return DYNAMIC_TOPIC_PATHS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FEATURED_CONTENT", function() { return FEATURED_CONTENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FEATURE_TOPIC_CONFIGURATION", function() { return FEATURE_TOPIC_CONFIGURATION; });
+const RESOURCE_TYPES = {
+  COMPONENTS: 'Components',
+  DOCUMENTATION: 'Documentation',
+  SELF_SERVICE_TOOLS: 'Self-Service Tools',
+  REPOSITORIES: 'Repositories',
+  PEOPLE: 'People',
+  EVENTS: 'Events',
+};
+
+const SEARCH_RESOURCE_TYPES = {
+  GITHUB_ISSUE: 'Github Issue',
+  DOCUMIZE: 'Documize',
+};
+
+const JOURNEY = 'Journey';
+// not exactly a resource type but still an important identifier for a 'type' of devhub node
+// this will change in devhub v3 when all nodes, resources/topics/and more are treated as
+// equal
+const TOPICS = 'Topics';
+
+const RESOURCE_TYPES_LIST = Object.keys(RESOURCE_TYPES)
+  .map(key => RESOURCE_TYPES[key])
+  .concat(TOPICS)
+  .concat(JOURNEY)
+  .concat(SEARCH_RESOURCE_TYPES.GITHUB_ISSUE)
+  .concat(SEARCH_RESOURCE_TYPES.DOCUMIZE);
+
+const PERSONAS_LIST = ['Developer', 'Designer', 'Product Owner'];
+
+const buttonTypes = ['primary', 'secondary', 'link'];
+
+const MAIN_NAVIGATION_BTN = 'dh-main-nav';
+const SEARCH_INPUT_ID = 'dh-search-input';
+// for the card toggle component card limit prop
+
+// react-scroll requires identifiers to scroll to individual elements
+const REACT_SCROLL = {
+  CONFIG: {
+    duration: 750,
+    delay: 100,
+    smooth: true,
+  },
+  ELEMENTS: {
+    CARDS_CONTAINER: 'CARDS_CONTAINER',
+  },
+};
+
+const SEARCH = {
+  INPUT: {
+    maxLength: 40,
+    id: SEARCH_INPUT_ID,
+    name: `${SEARCH_INPUT_ID}.search`,
+  },
+};
+
+// supported namespace for dynamically generating avatar images or icons
+// this relates to the Avatar UI Component
+const AVATAR_NAMESPACES = {
+  fontawesome: 'fontawesome',
+  github: 'github',
+};
+
+const EVENTS = {
+  MAX_PAST_EVENTS: 9,
+};
+
+const EVENT_TYPES = {
+  eventbrite: 'eventbrite',
+  meetup: 'meetup',
+};
+
+const CARD_CAROUSEL = {
+  mobile: {
+    slidesPerPage: 1,
+    slidesPerScroll: 1,
+  },
+  desktop: {
+    slidesPerPage: 3,
+    slidesPerScroll: 3,
+  },
+};
+
+const POPULAR_TOPIC_CONFIGURATION = {
+  name: 'Popular',
+  description: 'These resources have been getting some attention lately',
+  maxNodes: 10, // this is calculated by measuring the 10 closest nodes relative the average page hit count
+  minPageViews: 4,
+};
+
+const DYNAMIC_TOPIC_PATHS = {
+  popular: 'popular',
+  featured: 'featured',
+};
+
+// featured content is identified by node.fields.title
+// an expressed in order by this object
+// this is a lookup table to easily identify which resources are considered featured
+const FEATURED_CONTENT = [
+  'BC Developers Exchange',
+  'Chat Channel Conventions',
+  'Steps to join Pathfinder Rocket.Chat',
+  '12 Factor Apps',
+  'Progressive Web Apps',
+  'Documize',
+  'What is Pathfinder?',
+];
+
+const FEATURE_TOPIC_CONFIGURATION = {
+  name: 'Featured Resources',
+  description: 'A selection of resources we think you will want to know about',
+};
+
+
+/***/ }),
+
 /***/ 87:
 /***/ (function(module) {
 
@@ -490,6 +631,8 @@ module.exports = require("os");
 const core = __webpack_require__(470);
 const github = __webpack_require__(469);
 const process = __webpack_require__(765);
+const { reduceJourneyRegistryToTopic } = __webpack_require__(628);
+
 const CONTENTS_QUERY = `
 query getRegistryContents($owner: String!, $repo: String!, $path: String!) { 
   repository(name:$repo, owner:$owner) {
@@ -566,7 +709,7 @@ async function run() {
           journeys
         }
       });
-
+      console.log(reduceJourneyRegistryToTopic(result.journeys))
       console.log(result);
     } catch(e) {
       core.debug(e.message);
@@ -3854,6 +3997,97 @@ function normalizePaginatedListResponse(octokit, url, response) {
       return totalCount;
     }
   });
+}
+
+
+/***/ }),
+
+/***/ 321:
+/***/ (function(module) {
+
+module.exports = {
+	compareTwoStrings,
+	findBestMatch
+};
+
+function compareTwoStrings(first, second) {
+	first = first.replace(/\s+/g, '')
+	second = second.replace(/\s+/g, '')
+
+	if (!first.length && !second.length) return 1;                   // if both are empty strings
+	if (!first.length || !second.length) return 0;                   // if only one is empty string
+	if (first === second) return 1;       							 // identical
+	if (first.length === 1 && second.length === 1) return 0;         // both are 1-letter strings
+	if (first.length < 2 || second.length < 2) return 0;			 // if either is a 1-letter string
+
+	let firstBigrams = new Map();
+	for (let i = 0; i < first.length - 1; i++) {
+		const bigram = first.substr(i, 2);
+		const count = firstBigrams.has(bigram)
+			? firstBigrams.get(bigram) + 1
+			: 1;
+
+		firstBigrams.set(bigram, count);
+	};
+
+	let intersectionSize = 0;
+	for (let i = 0; i < second.length - 1; i++) {
+		const bigram = second.substr(i, 2);
+		const count = firstBigrams.has(bigram)
+			? firstBigrams.get(bigram)
+			: 0;
+
+		if (count > 0) {
+			firstBigrams.set(bigram, count - 1);
+			intersectionSize++;
+		}
+	}
+
+	return (2.0 * intersectionSize) / (first.length + second.length - 2);
+}
+
+function findBestMatch(mainString, targetStrings) {
+	if (!areArgsValid(mainString, targetStrings)) throw new Error('Bad arguments: First argument should be a string, second should be an array of strings');
+	
+	const ratings = [];
+	let bestMatchIndex = 0;
+
+	for (let i = 0; i < targetStrings.length; i++) {
+		const currentTargetString = targetStrings[i];
+		const currentRating = compareTwoStrings(mainString, currentTargetString)
+		ratings.push({target: currentTargetString, rating: currentRating})
+		if (currentRating > ratings[bestMatchIndex].rating) {
+			bestMatchIndex = i
+		}
+	}
+	
+	
+	const bestMatch = ratings[bestMatchIndex]
+	
+	return { ratings, bestMatch, bestMatchIndex };
+}
+
+function flattenDeep(arr) {
+	return Array.isArray(arr) ? arr.reduce((a, b) => a.concat(flattenDeep(b)), []) : [arr];
+}
+
+function areArgsValid(mainString, targetStrings) {
+	if (typeof mainString !== 'string') return false;
+	if (!Array.isArray(targetStrings)) return false;
+	if (!targetStrings.length) return false;
+	if (targetStrings.find(s => typeof s !== 'string')) return false;
+	return true;
+}
+
+function letterPairs(str) {
+	const pairs = [];
+	for (let i = 0, max = str.length - 1; i < max; i++) pairs[i] = str.substring(i, i + 2);
+	return pairs;
+}
+
+function wordLetterPairs(str) {
+	const pairs = str.toUpperCase().split(' ').map(letterPairs);
+	return flattenDeep(pairs);
 }
 
 
@@ -7557,6 +7791,255 @@ module.exports = isPlainObject;
 
 /***/ }),
 
+/***/ 628:
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+/*
+Copyright 2019 Province of British Columbia
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at 
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+Created by Patrick Simonian
+*/
+const { isTopicRegistryJson, isJourneyRegistryJson, verifyJourney } = __webpack_require__(982);
+const isArray = __webpack_require__(744);
+
+/**
+ * reduces a journey which is a 2d version of a  topic to a topic
+ * this is purely so that we can leverage routines that are already working in this file
+ * to extract github raw sources
+ * @param {Array} registry
+ * @returns {Array}
+ */
+const reduceJourneyRegistryToTopic = registry => {
+  const topicRegistry = registry.map(r => {
+    verifyJourney(r);
+    return {
+      ...r,
+      sourceProperties: {
+        sources: r.sourceProperties.stops.reduce((stopsAcc, stop) => {
+          const { stops, ...rest } = stop;
+          if (stops) {
+            // we need to keep a reference for all 'sub stops' that belong to a stop
+            // stops within stops MUST be an independant resource. For source type web this is a non issue
+            // for github source types, there is the possability to configure the registry with 'files' for topics
+            // this is not allowed in journeys
+            const stopsWithReference = stops.map(s => ({ ...s, connectsWith: { ...rest } }));
+            return stopsAcc.concat(rest).concat(stopsWithReference);
+          } else {
+            return stopsAcc.concat(stop);
+          }
+        }, []),
+      },
+    };
+  });
+  return topicRegistry;
+};
+/**
+ * registry configuration allows for multiple ways of configuring particular sources
+ * for example github sources can grab a file or files
+ * this function normalizes these configurations and 'expands' any condensed configurations
+ * suchs as the github source files property
+ * @param {Array} registry the registry
+ * @returns {Array} the expanded registry
+ */
+const expandRegistry = registry =>
+  registry.map(registryItem => {
+    const item = { ...registryItem, sourceProperties: { ...registryItem.sourceProperties } };
+    // console.log('REGISTRY ITEM START');
+    // console.log(registryItem, 'REGISTRY ITEM END');
+    // expand registry item sources
+    item.sourceProperties.sources = registryItem.sourceProperties.sources.reduce(
+      (sources, currentSource) => {
+        if (currentSource.sourceType === 'github') {
+          // github sources have the convenient interface for registering multiple files in the registry config
+          // they are now expanded to be individual 'source' configs so that they may be indentifiable
+          if (isArray(currentSource.sourceProperties.files)) {
+            const { repo, owner, branch } = currentSource.sourceProperties;
+            const flattenedSources = currentSource.sourceProperties.files.map(file => {
+              return {
+                sourceType: 'github',
+                sourceProperties: {
+                  repo,
+                  owner,
+                  file,
+                  branch,
+                },
+              };
+            });
+            sources = sources.concat(flattenedSources);
+          } else {
+            sources = sources.concat(currentSource);
+          }
+        } else {
+          sources = sources.concat(currentSource);
+        }
+        return sources;
+      },
+      [],
+    );
+
+    return item;
+  });
+
+/**
+ * split apart sources from their topics so that we have a flat list of sources
+ * @param {Array} expandedRegistry
+ * @returns {Array} the flattened sources
+ */
+const flattenExpandedRegistry = expandedRegistry =>
+  expandedRegistry.reduce((sources, registryItem) => {
+    const personas = registryItem.attributes && registryItem.attributes.personas;
+    const flattenedSources = registryItem.sourceProperties.sources.map(s => ({
+      source: s,
+      topic: registryItem.name,
+      topicResourceType: registryItem.resourceType,
+      topicPersonas: personas || [],
+    }));
+    return sources.concat(flattenedSources);
+  }, []);
+
+const getFilesFromRegistry = getNodes => {
+  const nodes = getNodes();
+  const sourceToTopicMap = {};
+
+  const REGISTRY_TYPES = {
+    TOPIC: 'TOPIC',
+    JOURNEY: 'JOURNEY',
+  };
+  // get RegistryJson nodes
+  const topicRegistry = nodes
+    .filter(isTopicRegistryJson)
+    .map(n => ({ ...n, type: REGISTRY_TYPES.TOPIC }));
+  const journeyRegistry = nodes
+    .filter(isJourneyRegistryJson)
+    .map(n => ({ ...n, type: REGISTRY_TYPES.JOURNEY }));
+  const mappedTopicRegistry = reduceJourneyRegistryToTopic(journeyRegistry);
+
+  // expand registry so that any items that list multiple files (for source: github)
+  // are spread into individual objects
+  // [{sourceProperties: { files: [A, B]}}] => [{sourceProperties: { file: A}}, {sourceProperties: { file: B}}]
+  const expandedRegistry = expandRegistry(topicRegistry.concat(mappedTopicRegistry));
+
+  const sources = expandedRegistry.reduce((sources, registryItem) => {
+    const personas = registryItem.attributes && registryItem.attributes.personas;
+    const flattenedSources = registryItem.sourceProperties.sources.map(s => {
+      if (registryItem.type === REGISTRY_TYPES.TOPIC) {
+        return {
+          source: s,
+          topic: registryItem.name,
+          topicResourceType: registryItem.resourceType,
+          topicPersonas: personas || [],
+        };
+      } else if (registryItem.type === REGISTRY_TYPES.JOURNEY) {
+        return {
+          source: s,
+          journey: registryItem.name,
+          journeyResourceType: registryItem.resourceType,
+          journeyPersonas: personas || [],
+        };
+      }
+      return null;
+    });
+    return sources.concat(flattenedSources);
+  }, []);
+
+  // add position metadata to github urls and set non github source types to null
+  // so that they are filterable
+  const resolvedGitSources = sources
+    .map((s, ind) => {
+      const {
+        source,
+        topic,
+        topicResourceType,
+        topicPersonas,
+        journey,
+        journeyResourceType,
+        journeyPersonas,
+      } = s;
+
+      if (source.sourceType === 'github') {
+        const {
+          sourceProperties: { repo, owner, branch, file },
+          connectsWith,
+        } = source;
+
+        const fileBranch = branch ? branch : 'master';
+        return {
+          url: `https://github.com/${owner}/${repo}/blob/${fileBranch}/${file}`,
+          position: ind,
+          topic,
+          topicResourceType,
+          topicPersonas,
+          journeyPersonas,
+          journey,
+          journeyResourceType,
+          journeyConnectsWith: connectsWith,
+        };
+      } else {
+        // web source types are ignored
+        return null;
+      }
+    })
+    .filter(s => s !== null); // filter out web types
+
+  // map out urls to their respective topics since this is 1 to many relationship
+  // ends up with structure that is similar to this => {url1: {topics: [topicA, topicB], ...other props}}
+  resolvedGitSources.forEach(
+    ({ url, topic, journey, topicResourceType, topicPersonas, position }) => {
+      if (Object.prototype.hasOwnProperty.call(sourceToTopicMap, url)) {
+        if (topic) {
+          sourceToTopicMap[url].topics.push(topic);
+        }
+        if (journey) {
+          sourceToTopicMap[url].journeys.push(journey);
+        }
+      } else {
+        sourceToTopicMap[url] = {
+          topics: topic ? [topic] : [],
+          journeys: journey ? [journey] : [],
+          topicResourceType,
+          topicPersonas,
+          position: position,
+        };
+      }
+    },
+  );
+
+  // convert sourceToTopicMap to an array in the expected structure for the github raw plugin
+  return Object.keys(sourceToTopicMap).map(url => ({
+    url,
+    topics: sourceToTopicMap[url].topics,
+    journeys: sourceToTopicMap[url].journeys,
+    topicResourceType: sourceToTopicMap[url].topicResourceType, // the following props are being bound to cascade
+    // resource types/personas from the collection to the individual resource, this preserves a feature of
+    // providing reasonable defaults for resource type/personas if they dont exist inside the github raw nodes
+    // markdown frontmatter
+    topicPersonas: sourceToTopicMap[url].topicPersonas,
+    position: sourceToTopicMap[url].position,
+  }));
+};
+
+module.exports = {
+  getFilesFromRegistry,
+  expandRegistry,
+  flattenExpandedRegistry,
+  reduceJourneyRegistryToTopic,
+};
+
+
+/***/ }),
+
 /***/ 649:
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
@@ -7825,6 +8308,39 @@ function sync (path, options) {
     }
   }
 }
+
+
+/***/ }),
+
+/***/ 744:
+/***/ (function(module) {
+
+/**
+ * Checks if `value` is classified as an `Array` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an array, else `false`.
+ * @example
+ *
+ * _.isArray([1, 2, 3]);
+ * // => true
+ *
+ * _.isArray(document.body.children);
+ * // => false
+ *
+ * _.isArray('abc');
+ * // => false
+ *
+ * _.isArray(_.noop);
+ * // => false
+ */
+var isArray = Array.isArray;
+
+module.exports = isArray;
 
 
 /***/ }),
@@ -11224,6 +11740,149 @@ function onceStrict (fn) {
 }
 
 
+/***/ }),
+
+/***/ 982:
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+/*
+Copyright 2019 Province of British Columbia
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at 
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+Created by Patrick Simonian
+*/
+
+// node validators
+const stringSimilarity = __webpack_require__(321);
+const { RESOURCE_TYPES_LIST } = __webpack_require__(53);
+const isGithubRaw = node => node.internal.type === 'GithubRaw';
+const isMarkdownRemark = node => node.internal.type === 'MarkdownRemark';
+const isDevhubSiphon = node => node.internal.type === 'DevhubSiphon';
+const isMeetupEvent = node => node.internal.type === 'MeetupEvent';
+const isEventbriteEvents = node => node.internal.type === 'EventbriteEvents';
+const isTopicRegistryJson = node => node.internal.type === 'TopicRegistryJson';
+const isJourneyRegistryJson = node => node.internal.type === 'JourneyRegistryJson';
+const isMarkdownRemarkFrontmatter = node => node.internal.type === 'MarkdownRemarkFrontmatter';
+const isMatomoPageStats = node => node.internal.type === 'MatomoPageStats';
+
+const getClosest = (value, list) => {
+  const matches = stringSimilarity.findBestMatch(value, list);
+  // only return the best match if its greater than .5 in similarity
+  return matches.bestMatch.rating >= 0.5 ? matches.bestMatch.target : '';
+};
+
+/**
+ * returns the closest resourceType from the constant resourceTypes array based on the
+ * uncontrolled resourceType (given to us by contributors)
+ * @param {String} resourceType the resource type provided by a specific piece of content
+ */
+const getClosestResourceType = resourceType => {
+  // if its blank don't bother checking closeness
+  if (resourceType === '') return '';
+  return getClosest(resourceType, RESOURCE_TYPES_LIST);
+};
+
+/**
+ * returns the closest persona from the array of personas based on the
+ * uncontrolled persona (given to us by contributors)
+ * @param {Array} personas the personas provided by a specific piece of content
+ * @param {Array} personas the valid personas list
+ */
+const getClosestPersona = (personaList, personas) => {
+  // if its blank don't bother checking closeness
+  if (personaList.length === 0) return [];
+
+  return personaList.map(p => {
+    return getClosest(p, personas);
+  });
+};
+
+/**
+ * Journeys need to be validated for github sources
+ * the 'files' argument is not allowed for journeys since a journey
+ * explicitly defines an orderered set of resources
+ * this fn will throw if the registry item is invalid
+ * @param {Object} registryItem
+ * @returns {void}
+ */
+const verifyJourney = registryItem => {
+  const throwIfInvalidGithubSource = source => {
+    if (source.sourceType === 'github') {
+      if (source.sourceProperties.files) {
+        throw new Error(`Error with Journey Registry: ${registryItem.name}.
+          A primary stop in a registry cannot have multiple files associated with it. Avoid using
+          the 'files' argument as it would be used in a topic. 
+        `);
+      }
+    }
+  };
+
+  registryItem.sourceProperties.stops.forEach(throwIfInvalidGithubSource);
+};
+/**
+ * @param {String} topic the name of the topic
+ * @param {Object} node the node to check against
+ * @param {Object} node.fields
+ * @param {Array} node.fields.topics
+ */
+const nodeBelongsToTopic = (topic, node) => node.fields.topics.includes(topic);
+
+module.exports = {
+  isGithubRaw,
+  isMeetupEvent,
+  isMarkdownRemark,
+  isMarkdownRemarkFrontmatter,
+  isDevhubSiphon,
+  isEventbriteEvents,
+  isTopicRegistryJson,
+  isJourneyRegistryJson,
+  isMatomoPageStats,
+  getClosest,
+  getClosestPersona,
+  getClosestResourceType,
+  nodeBelongsToTopic,
+  verifyJourney,
+};
+
+
 /***/ })
 
-/******/ });
+/******/ },
+/******/ function(__webpack_require__) { // webpackRuntimeModules
+/******/ 	"use strict";
+/******/ 
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getter */
+/******/ 	!function() {
+/******/ 		// define getter function for harmony exports
+/******/ 		var hasOwnProperty = Object.prototype.hasOwnProperty;
+/******/ 		__webpack_require__.d = function(exports, name, getter) {
+/******/ 			if(!hasOwnProperty.call(exports, name)) {
+/******/ 				Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ }
+);
