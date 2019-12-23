@@ -491,10 +491,10 @@ const core = __webpack_require__(470);
 const github = __webpack_require__(469);
 const process = __webpack_require__(765);
 const CONTENTS_QUERY = `
-query getRegistryContents($owner: String!, $repo: String!, $branch: String!, $path: String!) { 
+query getRegistryContents($owner: String!, $repo: String!, $path: String!) { 
   repository(name:$repo, owner:$owner) {
     id
-    object(expression: "$branch:$path") {
+    object(expression: "$path") {
       ...on Tree {
         entries {
           name
@@ -512,6 +512,11 @@ query getRegistryContents($owner: String!, $repo: String!, $branch: String!, $pa
   }  
 }`
 
+/**
+ * reduces the result from the contents graphql query into a list
+ * @param {Array} graphqlResults the raw contents query
+ * @returns {Array} [{...fileContents}] 
+ */
 const reduceContentsResults = results => {
   return results;
 }
@@ -532,8 +537,7 @@ async function run() {
         const response = await octokit.graphql(CONTENTS_QUERY, {
           repo: 'devhub-app-web',
           owner: 'bcgov',
-          branch: ref,
-          path: 'app-web/topicRegistry'
+          path: `${ref}:app-web/topicRegistry`,
         });
         console.log('found the response', response);
       })
