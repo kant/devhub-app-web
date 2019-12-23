@@ -547,7 +547,7 @@ async function run() {
         });
         console.log(topicsRegistry);
         core.debug(`Fetching contents from ${topicsRegistry}`);
-        return reduceContentsResults(topicsRegistry.data).concat(journeyRegistry.data)
+        return reduceContentsResults(topicsRegistry).concat(journeyRegistry)
       });
 
       console.log(result);

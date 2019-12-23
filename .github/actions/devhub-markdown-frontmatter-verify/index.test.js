@@ -6,7 +6,6 @@ const { reduceContentsResults } = require('./index');
 
 test('Reducing Github GraphQL Contents', () => {
     const graphql1 = {
-            "data": {
             "repository": {
                 "id": "MDEwOlJlcG9zaXRvcnkxNDg2Nzk1OTQ=",
                 "name": "devhub-app-web",
@@ -27,7 +26,6 @@ test('Reducing Github GraphQL Contents', () => {
                 ]
                 }
             }
-        }
     }
     const expected = [
         {
@@ -40,7 +38,7 @@ test('Reducing Github GraphQL Contents', () => {
         }
     ]
 
-    expect(reduceContentsResults('app-web', graphql1.data)).toEqual(expected);
+    expect(reduceContentsResults('app-web', graphql1)).toEqual(expected);
 })
 test.skip('throws invalid number', async() => {
     await expect(wait('foo')).rejects.toThrow('milleseconds not a number');
