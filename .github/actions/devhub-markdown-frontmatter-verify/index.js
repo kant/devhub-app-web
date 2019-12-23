@@ -56,13 +56,16 @@ async function run() {
           owner: 'bcgov',
           path: `${ref}:app-web/journeyRegistry`,
         });
-        console.log(topicsRegistry);
+        core.debug(topicsRegistry.repository)
+        core.debug(topicsRegistry.repository.object)
+        core.debug(topicsRegistry.repository.object.entries)
         core.debug(`Fetching contents from ${topicsRegistry}`);
         return reduceContentsResults(topicsRegistry).concat(journeyRegistry)
       });
 
       console.log(result);
     } catch(e) {
+      core.debug(e.message);
       core.error(e);
       core.setFailed('Action failed with above error:(');
     }
