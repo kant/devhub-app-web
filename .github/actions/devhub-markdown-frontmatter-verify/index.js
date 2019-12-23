@@ -44,7 +44,7 @@ async function run() {
     const { ref } = github.context;
     core.debug(`Fetching contents from ${ref}`);
     try {
-      
+      console.log('oopsy')
       const result = await core.group('Fetching topic and journey registries', async () => {
         const topicsRegistry = await octokit.graphql(CONTENTS_QUERY, {
           repo: 'devhub-app-web',
@@ -56,6 +56,7 @@ async function run() {
           owner: 'bcgov',
           path: `${ref}:app-web/journeyRegistry`,
         });
+        console.log(JSON.stringify(topicsRegistry), JSON.stringify(journeyRegistry))
         core.debug(JSON.stringify(topicsRegistry));
         core.debug(JSON.stringify(journeyRegistry));
         core.debug(topicsRegistry.repository)
