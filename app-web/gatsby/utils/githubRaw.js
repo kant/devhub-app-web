@@ -113,6 +113,19 @@ const flattenExpandedRegistry = expandedRegistry =>
     return sources.concat(flattenedSources);
   }, []);
 
+/**
+ * returns the git url resolved from a file and its source
+ * @param {Object} source
+ */
+const getGitUrlFromSource = source => {
+  const {
+    sourceProperties: { repo, owner, branch, file },
+  } = source;
+
+  const fileBranch = branch ? branch : 'master';
+  return `https://github.com/${owner}/${repo}/blob/${fileBranch}/${file}`;
+};
+
 const getFilesFromRegistry = getNodes => {
   const nodes = getNodes();
   const sourceToTopicMap = {};
@@ -173,14 +186,10 @@ const getFilesFromRegistry = getNodes => {
       } = s;
 
       if (source.sourceType === 'github') {
-        const {
-          sourceProperties: { repo, owner, branch, file },
-          connectsWith,
-        } = source;
+        const { connectsWith } = source;
 
-        const fileBranch = branch ? branch : 'master';
         return {
-          url: `https://github.com/${owner}/${repo}/blob/${fileBranch}/${file}`,
+          url: getGitUrlFromSource(source),
           position: ind,
           topic,
           topicResourceType,
@@ -239,4 +248,5 @@ module.exports = {
   expandRegistry,
   flattenExpandedRegistry,
   reduceJourneyRegistryToTopic,
+  getGitUrlFromSource,
 };
